@@ -1,0 +1,8 @@
+### 3. Contenido del `.gitignore`
+Esto es fundamental para que GitHub no se llene de archivos temporales. Crea un archivo llamado `.gitignore` (con el punto al principio) y pega esto:
+
+```text
+__pycache__/
+*.pyc
+.vscode/
+.DS_Store
