@@ -1,0 +1,16 @@
+import socket
+
+def verificar_servicio(host, puerto):
+    """
+    Intenta establecer una conexión TCP con el host y puerto dados.
+    Retorna True si está abierto, False si está cerrado o inaccesible.
+    """
+    try:
+        # Crear un socket TCP
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(1)  # Tiempo de espera de 1 segundo
+            # connect_ex retorna 0 si la conexión fue exitosa
+            resultado = s.connect_ex((host, int(puerto)))
+            return resultado == 0
+    except Exception:
+        return False

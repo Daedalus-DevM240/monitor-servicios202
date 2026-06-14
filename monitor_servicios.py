@@ -1,26 +1,20 @@
 import socket
 import argparse
 
+# 1. Define la función aquí arriba
 def verificar_servicio(host, puerto):
-    """Intenta conectar a un puerto específico."""
     try:
-        # Creamos un socket de tipo TCP
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.settimeout(2) # Tiempo de espera de 2 segundos
-            resultado = s.connect_ex((host, puerto))
-            if resultado == 0:
-                return True # Puerto abierto
-            else:
-                return False # Puerto cerrado o filtrado
-    except Exception as e:
+            s.settimeout(1)
+            return s.connect_ex((host, int(puerto))) == 0
+    except:
         return False
 
+# 2. La función main que ya tienes debería llamar a la función anterior
 def main():
-    # Configuramos los argumentos para que el script sea profesional
-    parser = argparse.ArgumentParser(description="Monitor de servicios para tus apps")
-    parser.add_argument("--host", default="127.0.0.1", help="Dirección IP a escanear")
-    parser.add_argument("--puertos", type=int, nargs='+', help="Lista de puertos (ej: 3000 5432 80)")
-    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host", required=True)
+    parser.add_argument("--puertos", nargs='+', type=int, required=True)
     args = parser.parse_args()
 
     print(f"[*] Iniciando auditoría en {args.host}...")
